@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_ACCOUNT_ID: "373422647346"  # Thay thế giá trị này bằng account ID của bạn
+
 phases:
   pre_build:
     commands:
@@ -9,7 +13,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - cd analytics && docker build -t coworking-analytics:$CODEBUILD_BUILD_NUMBER .
+      - docker build -t coworking-analytics:$CODEBUILD_BUILD_NUMBER .
       - docker tag coworking-analytics:$CODEBUILD_BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/coworking-analytics:$CODEBUILD_BUILD_NUMBER
   post_build:
     commands:
